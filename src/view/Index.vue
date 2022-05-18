@@ -1,7 +1,5 @@
 <template>
     <div>
-
-
         <footer>
             <van-tabbar v-model="active">
                 <van-tabbar-item icon="home-o" to="/home/index">首页</van-tabbar-item>
@@ -25,8 +23,7 @@ export default {
                     'Shopcar': 2,
                     'Personal': 3,
                 }
-                this.active = titleMap[newRoute.meta.title]
-                // this.title = newRoute.meta.title
+                this.active = titleMap[newRoute.meta.title];
             },
             immediate: true
         }
@@ -35,4 +32,7 @@ export default {
 </script>
 
 <style>
+footer {
+    margin-bottom: 50px;
+}
 </style>

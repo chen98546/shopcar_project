@@ -1,0 +1,24 @@
+@mixin flex_c_c {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@mixin flex_sa_c {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+@mixin ellipsis-line-1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+@mixin ellipsis-line-2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}

@@ -5,12 +5,21 @@
         @click-left="$router.back()" />
     </header>
     <router-view></router-view>
+    <BackTop :distanceTop="600" />
   </div>
 </template>
 
 <script>
-export default {}
+import BackTop from './components/BackTop.vue'
+export default {
+  components: {
+    BackTop
+  }
+}
 </script>
 
-<style>
+<style lang="scss">
+html {
+  scroll-behavior: smooth;
+}
 </style>
