@@ -1,24 +1,12 @@
-# app
+# Vue项目-H5购物平台
 
-## Project setup
-```
-npm install
-```
+## 介绍
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+vue实战项目-H5商城
 
-### Compiles and minifies for production
-```
-npm run build
+## 项目运行
+
+```js
+    npm run dev
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
