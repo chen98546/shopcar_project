@@ -10,3 +10,8 @@ vue实战项目-H5商城
     npm run dev
 ```
 
+## 预览dist目录
+
+```js
+    npm run dist
+```

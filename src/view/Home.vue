@@ -1,7 +1,9 @@
 <template>
     <div>
         <form action="/">
-            <van-search v-model="value" show-action placeholder="请输入搜索关键词" />
+            <van-search v-model="value" show-action placeholder="请输入搜索关键词">
+                <span slot="left">logo</span>
+            </van-search>
         </form>
         <router-link to="/test">Test</router-link>
         <router-view></router-view>
