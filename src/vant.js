@@ -11,6 +11,7 @@ import {
     Grid,
     GridItem,
     Divider,
+    Icon,
     
 } from "vant";
 
@@ -25,3 +26,4 @@ Vue.use(Lazyload);
 Vue.use(Grid);
 Vue.use(GridItem);
 Vue.use(Divider);
+Vue.use(Icon);

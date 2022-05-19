@@ -1,7 +1,9 @@
 <template>
     <div>
         <div class="backTop" v-show="flag" @click="backTopFn">
-            <slot>top</slot>
+            <slot>
+                <van-icon name="back-top" size="26" color="#ccc" />
+            </slot>
         </div>
     </div>
 </template>
@@ -42,15 +44,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/common.scss';
+
 .backTop {
+    @include flex_c_c;
+
     position: fixed;
     bottom: 80px;
     right: 10px;
     z-index: 999999;
-    width: 40px;
-    line-height: 40px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    text-align: center;
-    background-color: #ccc;
+    background-color: #fff;
+    border: 1px solid #ccc;
 }
 </style>
