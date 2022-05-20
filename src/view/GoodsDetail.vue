@@ -1,13 +1,12 @@
 <template>
     <div class="goodsDetailWrap">
-        <div class="goodsDetailImg" @click="previewImgFn">
+        <div class="goodsDetailImg">
             <van-swipe>
-                <van-swipe-item v-for="item in images" :key="item">
-                    <img :src="item" alt="" />
+                <van-swipe-item v-for="(item, index) in detailDataImg" :key="item.src">
+                    <img :src="item.src" alt="" @click="previewImage(index)" />
                 </van-swipe-item>
             </van-swipe>
-
-            <van-image-preview v-model="isShow" :images="images" />
+            <!-- <van-image-preview v-model="isShow" :images="images" /> -->
         </div>
         <div class="goodsDetailCountdown">
             <div class="goodsDetailPrice">
@@ -27,8 +26,8 @@
 
 <script>
 import { getGoodsDetail, getGoodsDetailImg } from "../fetch/fetch.js";
+import { ImagePreview } from 'vant';
 export default {
-    props: ['data'],
     data() {
         return {
             isShow: false,
@@ -40,22 +39,26 @@ export default {
     created() {
         this._getGoodsDetail();
         this._getGoodsDetailImg();
-        console.log(this.data);
     },
     methods: {
-        previewImgFn() {
-            this.isShow = true;
-            // this.index = index;
-        },
+        // previewImgFn() {
+        //     this.isShow = true;
+        //     // this.index = index;
+        // },
         async _getGoodsDetail() {
             let { message } = await getGoodsDetail(this.$route.params.id);
-            console.log(message);
             this.detailData = message;
         },
         async _getGoodsDetailImg() {
             let { message } = await getGoodsDetailImg(this.$route.params.id);
-            this.images.push(message[0].src, 'https://m.360buyimg.com/mobilecms/s750x750_jfs/t1/49950/9/18324/143277/62846c23E62c9ae6a/e936e98f3b1988e6.jpg!q80.dpg');
-            this.detailDataImg = message[0];
+            this.detailDataImg = message;
+            message.map(item => this.images.push(item.src))
+        },
+        previewImage(index) {
+            ImagePreview({
+                images: this.images,
+                startPosition: index,
+            });
         },
     },
 };

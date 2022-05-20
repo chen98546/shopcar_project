@@ -1,8 +1,10 @@
 <template>
   <div>
     <header>
-      <van-nav-bar :title="$route.meta.title" left-text="返回" right-text="按钮" left-arrow v-if="!$route.meta.levelOnePage"
-        @click-left="$router.back()" />
+      <van-sticky>
+        <van-nav-bar :title="$route.meta.title" left-text="返回" right-text="按钮" left-arrow
+          v-if="!$route.meta.levelOnePage" @click-left="$router.back()" />
+      </van-sticky>
     </header>
     <router-view></router-view>
     <BackTop :distanceTop="600" />
