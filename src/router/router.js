@@ -21,7 +21,6 @@ let router = new VueRouter({
                         title: 'Home',
                         levelOnePage: true,
                     },
-
                 },
                 {
                     path: 'category',
@@ -50,12 +49,21 @@ let router = new VueRouter({
             ]
         },
         {
-            path: '/test',
-            component: () => import('../view/Test.vue'),
-            meta: {
-                title: 'Test'
-            }
-        }
+            path: '/supermarket/:id',
+            component: () => import('../view/GoodsList.vue'),
+        },
+        {
+            path: '/goodsDetail/:id',
+            component: () => import('../view/GoodsDetail.vue'),
+        },
+        // {
+        //     path: '/test',
+        //     component: () => import('../view/Test.vue'),
+        //     meta: {
+        //         title: 'Test'
+        //     }
+        // },
+
 
     ],
 })

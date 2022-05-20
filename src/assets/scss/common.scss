@@ -8,6 +8,11 @@
     justify-content: space-around;
     align-items: center;
 }
+@mixin flex_sb_c {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 @mixin ellipsis-line-1 {
     white-space: nowrap;

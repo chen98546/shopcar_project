@@ -12,7 +12,12 @@ import {
     GridItem,
     Divider,
     Icon,
-    
+    Sticky,
+    Toast,
+    ImagePreview,
+    PullRefresh,
+    List
+
 } from "vant";
 
 
@@ -27,3 +32,8 @@ Vue.use(Grid);
 Vue.use(GridItem);
 Vue.use(Divider);
 Vue.use(Icon);
+Vue.use(Sticky);
+Vue.use(Toast);
+Vue.use(ImagePreview);
+Vue.use(PullRefresh);
+Vue.use(List);

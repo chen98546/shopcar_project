@@ -13,7 +13,7 @@
 import BackTop from './components/BackTop.vue'
 export default {
   components: {
-    BackTop
+    BackTop,
   }
 }
 </script>

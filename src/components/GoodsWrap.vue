@@ -1,94 +1,97 @@
 <template>
     <!-- 商品列表 -->
-    <div class="goodsWrap">
-        <a href="javascript:;" class="goodsItem" v-for="item in goodsData" :key="item.id">
+    <a href="javascript:;" class="goodsItem" @click="goodsHandle(data)">
+        <slot name="goodsImg">
             <div class="goodsImgWrap">
-                <img class="goodsImg" v-lazy="item.img_url" alt="">
+                <img class="goodsImg" v-lazy="data.img_url" alt="">
             </div>
-            <div class="goodsPadding">
-                <p class="goodsText">{{ item.zhaiyao }}</p>
+        </slot>
+        <div class="goodsPadding">
+            <slot name="goodsText">
+                <p class="goodsText">{{ data.zhaiyao }}</p>
+            </slot>
+            <slot name="goodsPrice">
                 <div class="goodsPrice">
-                    <span style="font-size:14px">￥</span>
-                    <span>{{ item.sell_price }}</span>
-                    <span style="font-size:14px">.00</span>
+                    ￥<span class="sellPrice">{{ data.sell_price }}</span>{{ getFloatFn(data.sell_price) }}
                 </div>
-                <div class="goodsComments">
-                    {{ item.buy }}条评论
+            </slot>
+            <slot name="goodsComments">
+                <div class=" goodsComments">
+                    {{ data.buy > 999 ? '999+' : data.buy }}条评论
                 </div>
-            </div>
-        </a>
-    </div>
+            </slot>
+        </div>
+    </a>
 </template>
 
 <script>
+
 export default {
-    data() {
-        return {
-            goodsData: [],
-            page: 1,
-            limit: 10
-        }
-    },
-    created() {
-        this.getGoodsData();
-    },
+    props: ['data'],
     methods: {
-        async getGoodsData() {
-            let { data } = await this.$axios.get(`http://api.w0824.com/api/recommend?page=${this.page}&limit=${this.limit}`)
-            this.goodsData = data.message
+        getFloatFn(price) {
+            let newFloatStr = '';
+            price = price.toString();
+            let floatStr = price.substring(price.lastIndexOf('.'));
+            // 价格后面是否有小数点 有则保留 无则添加
+            !floatStr.indexOf('.') && (newFloatStr = floatStr) || (newFloatStr = '.00')
+            // 小数点后只有一位则在后面拼接0
+            newFloatStr.length == 2 && (newFloatStr += '0')
+            return newFloatStr
         },
+        goodsHandle(data) {
+            this.$emit('goodsClick',data);
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../assets/scss/common.scss';
-.goodsWrap {
-    padding: 0 5px;
-    @include flex_sa_c;
-    flex-wrap: wrap;
 
-    .goodsItem {
-        width: 180px;
-        height: 290px;
-        font-size: 14px;
-        color: #333;
-        background-color: #fff;
-        border-radius: 10px;
-        overflow: hidden;
-        margin: 5px 0;
+.goodsItem {
+    width: 180px;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 5px 0;
 
-        .goodsImgWrap {
-            height: 180px;
+    .goodsImgWrap {
+        height: 180px;
 
-            .goodsImg {
-                width: 100%;
-                height: 100%;
-            }
+        .goodsImg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .goodsPadding {
+        padding: 0 10px;
+
+        .goodsText {
+            @include ellipsis-line-2;
+            margin: 8px 0;
+            line-height: 1.5;
         }
 
-        .goodsPadding {
-            padding: 0 10px;
+        .goodsPrice {
+            color: red;
+            font-size: 14px;
 
-            .goodsText {
-                @include ellipsis-line-2;
-                margin: 5px 0 10px;
-                line-height: 1.5;
-            }
-
-            .goodsPrice {
-                color: red;
+            .sellPrice {
                 font-size: 20px;
             }
-
-            .goodsComments {
-                margin-top: 5px;
-                color: #999;
-                font-size: 12px;
-            }
         }
 
-
+        .goodsComments {
+            margin: 5px 0 10px;
+            color: #999;
+            font-size: 12px;
+        }
     }
+
+
 }
 </style>

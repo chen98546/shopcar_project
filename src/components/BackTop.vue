@@ -2,7 +2,7 @@
     <div>
         <div class="backTop" v-show="flag" @click="backTopFn">
             <slot>
-                <van-icon name="back-top" size="26" color="#ccc" />
+                <van-icon name="back-top" color="#ccc" />
             </slot>
         </div>
     </div>
@@ -58,5 +58,9 @@ export default {
     border-radius: 50%;
     background-color: #fff;
     border: 1px solid #ccc;
+
+    .van-icon {
+        font-size: 26px;
+    }
 }
 </style>
