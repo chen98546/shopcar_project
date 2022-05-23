@@ -35,7 +35,7 @@ let router = new VueRouter({
                     component: () => import('../view/Shopcar.vue'),
                     meta: {
                         title: 'Shopcar',
-                        levelOnePage: true,
+                        // levelOnePage: true,
                     }
                 },
                 {

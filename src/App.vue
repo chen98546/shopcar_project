@@ -2,8 +2,8 @@
   <div>
     <header>
       <van-sticky>
-        <van-nav-bar :title="$route.meta.title" left-text="返回" right-text="按钮" left-arrow
-          v-if="!$route.meta.levelOnePage" @click-left="$router.back()" />
+        <van-nav-bar :title="$route.meta.title" left-text="返回" left-arrow v-show="isShowNavBar"
+          @click-left="$router.back()" />
       </van-sticky>
     </header>
     <router-view></router-view>
@@ -14,9 +14,24 @@
 <script>
 import BackTop from './components/BackTop.vue'
 export default {
+
+  data() {
+    return {
+      isShowNavBar: false
+    }
+  },
+  watch: {
+    $route: {
+      handler(newRoute, oldRoute) {
+        let { levelOnePage } = newRoute.meta;
+        levelOnePage ? (this.isShowNavBar = false) : (this.isShowNavBar = true);
+      },
+      immediate: true
+    }
+  },
   components: {
     BackTop,
-  }
+  },
 }
 </script>
 
@@ -24,4 +39,5 @@ export default {
 html {
   scroll-behavior: smooth;
 }
+
 </style>

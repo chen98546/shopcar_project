@@ -16,7 +16,18 @@ import {
     Toast,
     ImagePreview,
     PullRefresh,
-    List
+    List,
+    GoodsAction,
+    GoodsActionIcon,
+    GoodsActionButton,
+    Sku,
+    Card,
+    SubmitBar,
+    Checkbox,
+    CheckboxGroup,
+    Stepper,
+    SwipeCell,
+    Button
 
 } from "vant";
 
@@ -37,3 +48,14 @@ Vue.use(Toast);
 Vue.use(ImagePreview);
 Vue.use(PullRefresh);
 Vue.use(List);
+Vue.use(GoodsAction);
+Vue.use(GoodsActionButton);
+Vue.use(GoodsActionIcon);
+Vue.use(Sku);
+Vue.use(Card);
+Vue.use(SubmitBar);
+Vue.use(Checkbox);
+Vue.use(CheckboxGroup);
+Vue.use(Stepper);
+Vue.use(SwipeCell);
+Vue.use(Button);

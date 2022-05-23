@@ -3,7 +3,7 @@
         <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
             <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
                 <div class="goodsWrap">
-                    <GoodsWrap v-for="item in goodsData" :key="item.id" :data="item" @goodsClick="goodsDetailFn" />
+                    <GoodsWrap v-for="item in goodsData" :key="item.id" :data="item" />
                 </div>
             </van-list>
         </van-pull-refresh>
@@ -29,21 +29,9 @@ export default {
         }
     },
     methods: {
-        goodsDetailFn(data) {
-            this.$router.push('/goodsDetail/' + data.id)
-        },
         async _fetchGoodsList() {
             if (this.refreshing) {
                 this.goodsData = [];
-                // this.goodsData.map((item, index) => {
-                //     let i = Math.floor(Math.random() * this.goodsData.length)
-                //     this.goodsData[index] = [this.goodsData[i], this.goodsData[i] = this.goodsData[index]][0];
-                // })
-                // this.goodsData.filter(item=>{
-                //     return item.id
-                // }).map(item=>{
-                //     return item
-                // })
                 this.refreshing = false;
             }
 

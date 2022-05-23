@@ -6,7 +6,7 @@
                     <img :src="item.src" alt="" @click="previewImage(index)" />
                 </van-swipe-item>
             </van-swipe>
-            <!-- <van-image-preview v-model="isShow" :images="images" /> -->
+            <!-- <van-image-preview v-model="isShowSku" :images="images" /> -->
         </div>
         <div class="goodsDetailCountdown">
             <div class="goodsDetailPrice">
@@ -21,6 +21,26 @@
         <div class="goodsContent">
             <div class="content" v-html="detailData.content"></div>
         </div>
+
+        <van-goods-action>
+            <van-goods-action-icon icon="chat-o" text="客服" />
+            <van-goods-action-icon icon="shop-o" text="店铺" />
+            <van-goods-action-icon :icon="!collect ? 'star-o' : 'star'" :color="!collect ? '' : '#ff5000'"
+                :text="!collect ? '未收藏' : '已收藏'" @click="collect = !collect" />
+            <van-goods-action-button type="warning" text="加入购物车" @click="addCartBtn" />
+            <van-goods-action-button type="danger" text="立即购买" @click="buyNowBtn" />
+        </van-goods-action>
+        <van-sku v-model="isShowSku" :sku="sku" :goods="goods" :goods-id="detailData.id" :hide-stock="sku.hide_stock"
+            :reset-stepper-on-hide="true" :show-add-cart-btn="isShowCartBtn" @buy-clicked="skuBuyNowBtn"
+            @add-cart="skuAddCartBtn">
+            <div slot="sku-messages" class="card">
+                <van-divider>商品信息</van-divider>
+                <div>商品货号：{{ detailData.goods_no }}</div>
+                <div>库存：{{ detailData.stock_quantity }}件</div>
+                <div>上架时间：{{ detailData.add_time | formatDate('YYYY-MM-DD') }}</div>
+            </div>
+        </van-sku>
+
     </div>
 </template>
 
@@ -30,10 +50,14 @@ import { ImagePreview } from 'vant';
 export default {
     data() {
         return {
-            isShow: false,
+            collect: false,
+            isShowSku: false,
+            isShowCartBtn: true,
+            images: [],
             detailData: [],
             detailDataImg: [],
-            images: [],
+            goods: { picture: "" },
+            sku: { tree: [], price: '99999.00', stock_num: 0 }
         };
     },
     created() {
@@ -41,24 +65,43 @@ export default {
         this._getGoodsDetailImg();
     },
     methods: {
-        // previewImgFn() {
-        //     this.isShow = true;
-        //     // this.index = index;
-        // },
+        // 请求详情页数据
         async _getGoodsDetail() {
             let { message } = await getGoodsDetail(this.$route.params.id);
             this.detailData = message;
+            this.sku.price = message.sell_price;
+            this.sku.stock_num = message.stock_quantity;
         },
+        // 请求详情页图片数据
         async _getGoodsDetailImg() {
             let { message } = await getGoodsDetailImg(this.$route.params.id);
             this.detailDataImg = message;
-            message.map(item => this.images.push(item.src))
+            message.map(item => this.images.push(item.src));
+            this.goods.picture = message[0].src;
         },
+        // 预览图片
         previewImage(index) {
-            ImagePreview({
-                images: this.images,
-                startPosition: index,
-            });
+            ImagePreview({ images: this.images, startPosition: index });
+        },
+        // 添加购物车按钮
+        addCartBtn() {
+            this.isShowSku = this.isShowCartBtn = true;
+        },
+        // 立即购买按钮
+        buyNowBtn() {
+            this.isShowSku = true;
+            this.isShowCartBtn = false;
+        },
+        // sku立即购买
+        skuBuyNowBtn() {
+            this.isShowSku = false;
+        },
+        // sku添加购物车
+        skuAddCartBtn(skyData) {
+            let { sell_price, id, title, zhaiyao } = this.detailData;
+            let skuObj = { id, sell_price, title, zhaiyao, count: skyData.selectedNum, picture: this.goods.picture, checked: true };
+            this.$store.commit('skuAddCartNum', skuObj);
+            this.isShowSku = false;
         },
     },
 };
@@ -131,5 +174,6 @@ export default {
             margin: 0;
         }
     }
+
 }
 </style>

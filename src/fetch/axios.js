@@ -11,6 +11,11 @@ Vue.use({
 })
 
 
+// 取消圆圈
+NProgress.configure({
+    showSpinner: false
+});
+
 axios.interceptors.request.use(function (config) {
     Toast.loading({
         message: "加载中",
@@ -23,10 +28,11 @@ axios.interceptors.request.use(function (config) {
 });
 
 axios.interceptors.response.use(function (response) {
-    Toast.clear()
-    NProgress.done();
-    return response.data;
-}, function (error) {
-    Toast.clear();
-    return Promise.reject(error);
-});
+        Toast.clear()
+        NProgress.done();
+        return response.data;
+    },
+    function (error) {
+        Toast.clear();
+        return Promise.reject(error);
+    });
