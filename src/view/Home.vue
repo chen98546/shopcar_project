@@ -6,7 +6,7 @@
                 <div class="logo" slot="left">
                     <img src="../assets/images/logo.gif" alt="">
                 </div>
-                <!-- <span slot="action">登录</span> -->
+                <span slot="action" @click="$router.push('/login')">登录</span>
             </van-search>
         </van-sticky>
         <!-- 下拉刷新 -->
@@ -65,17 +65,18 @@ export default {
     },
     async created() {
         this.getSwipeData();
-        // this.goodsData = (await getGoodsData(this.page, this.limit)).message;
     },
     methods: {
+        // 商品轮播图
         async getSwipeData() {
             let data = await this.$axios.get('http://api.w0824.com/api/getlunbo')
             this.swipeData = data.message
         },
-
+        // 商品详情
         goodsDetailFn(data) {
             this.$router.push('/goodsDetail/' + data.id)
         },
+        // 商品数据
         async _getGoodsData() {
             if (this.refreshing) {
                 this.goodsData = [];
@@ -93,13 +94,14 @@ export default {
             if (message.length == 0) {
                 this.goodsData.length % 2 === 1 && this.goodsData.pop();
                 this.finished = true;
-
             }
         },
+        // 下拉加载
         onLoad() {
             this.page++;
             this._getGoodsData();
         },
+        // 刷新
         onRefresh() {
             this.page = 0;
             this.finished = false;

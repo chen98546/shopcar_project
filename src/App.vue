@@ -1,10 +1,7 @@
 <template>
   <div>
     <header>
-      <van-sticky>
-        <van-nav-bar :title="$route.meta.title" left-text="返回" left-arrow v-show="isShowNavBar"
-          @click-left="$router.back()" />
-      </van-sticky>
+      <Navbar @click-left="$router.back()" v-show="isShowNavbar" />
     </header>
     <router-view></router-view>
     <BackTop :distanceTop="600" />
@@ -13,25 +10,24 @@
 
 <script>
 import BackTop from './components/BackTop.vue'
+import Navbar from './components/Navbar.vue'
 export default {
 
   data() {
     return {
-      isShowNavBar: false
+      isShowNavbar: false
     }
   },
   watch: {
     $route: {
       handler(newRoute, oldRoute) {
-        let { levelOnePage } = newRoute.meta;
-        levelOnePage ? (this.isShowNavBar = false) : (this.isShowNavBar = true);
+        let { showNavbar } = newRoute.meta;
+        showNavbar ? (this.isShowNavbar = false) : (this.isShowNavbar = true);
       },
       immediate: true
     }
   },
-  components: {
-    BackTop,
-  },
+  components: { BackTop, Navbar },
 }
 </script>
 
@@ -40,4 +36,7 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  background-color: #f2f2f2;
+}
 </style>

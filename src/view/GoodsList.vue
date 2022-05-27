@@ -29,20 +29,17 @@ export default {
         }
     },
     methods: {
+        // 商品详情
         goodsDetailFn(data) {
             this.$router.push('/goodsDetail/' + data.id)
         },
+        // 商品数据
         async _fetchGoodsList() {
             if (this.refreshing) {
                 this.goodsData = [];
                 // this.goodsData.map((item, index) => {
                 //     let i = Math.floor(Math.random() * this.goodsData.length)
                 //     this.goodsData[index] = [this.goodsData[i], this.goodsData[i] = this.goodsData[index]][0];
-                // })
-                // this.goodsData.filter(item=>{
-                //     return item.id
-                // }).map(item=>{
-                //     return item
                 // })
                 this.refreshing = false;
             }
@@ -56,17 +53,18 @@ export default {
                 this.finished = true;
             }
         },
+        // 下拉加载
         onLoad() {
             this.page++;
             this._fetchGoodsList();
         },
+        // 刷新
         onRefresh() {
             this.page = 0;
             this.finished = false;
             this.loading = true;
             this.onLoad();
         },
-
     }
 }
 </script>

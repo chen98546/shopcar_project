@@ -27,7 +27,21 @@ import {
     CheckboxGroup,
     Stepper,
     SwipeCell,
-    Button
+    Button,
+    Form,
+    Field,
+    Cell,
+    CellGroup,
+    Image,
+    Empty,
+    Dialog,
+    AddressList,
+    AddressEdit,
+    Tabs,
+    Tab,
+    popup,
+    Steps,
+    Step
 
 } from "vant";
 
@@ -59,3 +73,17 @@ Vue.use(CheckboxGroup);
 Vue.use(Stepper);
 Vue.use(SwipeCell);
 Vue.use(Button);
+Vue.use(Form);
+Vue.use(Field);
+Vue.use(Cell);
+Vue.use(CellGroup);
+Vue.use(Image);
+Vue.use(Empty);
+Vue.use(Dialog);
+Vue.use(AddressList);
+Vue.use(AddressEdit);
+Vue.use(Tabs);
+Vue.use(Tab);
+Vue.use(popup);
+Vue.use(Steps);
+Vue.use(Step);
